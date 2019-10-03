@@ -20,7 +20,7 @@ COPY src/ /src
 #Install git and clone the CERIL repository
 RUN apt --assume-yes update
 RUN apt install --assume-yes git
-RUN git clone https://github.com/garrettkatz/copct.git /src/
+RUN git clone https://github.com/garrettkatz/copct.git /src/copct
 
 
 # Copies all of the pip .whl files into the image to install them

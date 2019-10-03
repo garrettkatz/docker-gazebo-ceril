@@ -13,8 +13,15 @@ RUN apt --assume-yes update
 RUN apt install --assume-yes python3-pip
 RUN pip3 install --upgrade pip
 
+
 # Copies any source-code you've written into the image
 COPY src/ /src
+
+#Install git and clone the CERIL repository
+RUN apt --assume-yes update
+RUN apt install --assume-yes git
+RUN git clone https://github.com/garrettkatz/copct.git /src/
+
 
 # Copies all of the pip .whl files into the image to install them
 COPY docker/vendor/ /vendor

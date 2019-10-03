@@ -1,0 +1,3 @@
+[submodule "./src/copct"]
+	path = ./src/copct
+	url = https://github.com/garrettkatz/copct.git

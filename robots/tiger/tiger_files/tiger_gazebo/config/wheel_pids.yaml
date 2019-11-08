@@ -1,0 +1,7 @@
+tiger:
+  tiger_wheel_controller:
+    gains:
+      wheel_mount_link_FR_wheel_link_joint1: {p: 100.0, i: 0.01, d: 10.0}
+      wheel_mount_link_FR_wheel_link_joint2: {p: 100.0, i: 0.01, d: 10.0}
+      wheel_mount_link_FR_wheel_link_joint3: {p: 100.0, i: 0.01, d: 10.0}
+      wheel_mount_link_FR_wheel_link_joint4: {p: 100.0, i: 0.01, d: 10.0}

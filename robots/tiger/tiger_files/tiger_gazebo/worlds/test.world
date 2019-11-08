@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!--<model name="box">
+	<link name="ground">
+		<collision name="collision">
+			<pose> 0 0 0.1 0 0 0 </pose>
+		    <geometry>
+			    <box>
+				    <size> 300 300 0.1 </size>
+			    </box>
+		    </geometry>
+	    </collision>
+         </link>
+    </model>-->
+    <gui fullscreen='0'>
+	    <camera name='user_camera'>
+		    <pose>4.927360 -4.376610 3.740080 0.000000 0.275643 2.356190</pose>
+		    <view_controller>orbit</view_controller>
+	    </camera>
+    </gui>
+						    
+
+  </world>
+</sdf>

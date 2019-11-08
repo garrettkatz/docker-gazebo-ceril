@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot name="materials" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="black">
+    <ambient>0.0 0.0 0.0 1.0</ambient>
+    <diffuse>0.0 0.0 0.0 1.0</diffuse>
+    <specular>0.0 0.0 0.0 1.0</specular>
+    <emissive>0.0 0.0 0.0 0.0</emissive>
+  </xacro:macro>
+
+  <xacro:macro name="maroon">
+    <ambient>0.5 0.0 0.0 1.0</ambient>
+    <diffuse>0.5 0.0 0.0 1.0</diffuse>
+    <specular>0.5 0.0 0.0 1.0</specular>
+    <emissive>0.0 0.0 0.0 0.0</emissive>
+  </xacro:macro>
+
+  <xacro:macro name="grey">
+    <ambient>0.2353 0.2353 0.2353 1.0</ambient>
+    <diffuse>0.2353 0.2353 0.2353 1.0</diffuse>
+    <specular>0.2353 0.2353 0.2353 1.0</specular>
+    <emissive>0.0 0.0 0.0 0.0</emissive>
+  </xacro:macro>
+
+  <xacro:macro name="orange">
+    <ambient>1.0 0.549 0.0 1.0</ambient>
+    <diffuse>1.0 0.549 0.0 1.0</diffuse>
+    <specular>1.0 0.549 0.0 1.0</specular>
+    <emissive>0.0 0.0 0.0 0.0</emissive>
+  </xacro:macro>
+
+  <xacro:macro name="silver">
+    <ambient>0.7529 0.7529 0.7529 1.0</ambient>
+    <diffuse>0.7529 0.7529 0.7529 1.0</diffuse>
+    <specular>0.7529 0.7529 0.7529 1.0</specular>
+    <emissive>0.0 0.0 0.0 0.0</emissive>
+  </xacro:macro>
+
+  <xacro:macro name="navy">
+    <ambient>0.0 0.0 0.5 1.0</ambient>
+    <diffuse>0.0 0.0 0.5 1.0</diffuse>
+    <specular>0.0 0.0 0.5 1.0</specular>
+    <emissive>0.0 0.0 0.0 0.0</emissive>
+  </xacro:macro>
+
+  <xacro:macro name="sky">
+    <ambient>0.0 0.549 1.0 1.0</ambient>
+    <diffuse>0.0 0.549 1.0 1.0</diffuse>
+    <specular>0.0 0.549 1.0 1.0</specular>
+    <emissive>0.0 0.0 0.0 0.0</emissive>
+  </xacro:macro>
+
+</robot>

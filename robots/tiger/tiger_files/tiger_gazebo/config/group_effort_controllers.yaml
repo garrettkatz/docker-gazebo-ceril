@@ -1,0 +1,27 @@
+tiger:
+  tiger_arm_controller:
+    type: effort_controllers/JointGroupPositionController
+    joints:
+      - lower_arm_link_wheel_mount_link_joint1
+      - lower_arm_link_wheel_mount_link_joint2
+      - lower_arm_link_wheel_mount_link_joint3
+      - lower_arm_link_wheel_mount_link_joint4
+      - base_link_lower_arm_link_joint1
+      - base_link_lower_arm_link_joint2
+      - base_link_lower_arm_link_joint3
+      - base_link_lower_arm_link_joint4
+      - base_link_upper_arm_link_joint1
+      - base_link_upper_arm_link_joint2
+      - base_link_upper_arm_link_joint3
+      - base_link_upper_arm_link_joint4
+  tiger_wheel_controller:
+    # type: effort_controllers/JointEffortController
+    type: effort_controllers/JointGroupEffortController
+    # type: position_controllers/JointTrajectoryController
+    # type: velocity_controllers/JointTrajectoryController
+    # type: effort_controllers/JointTrajectoryController
+    joints:
+      - wheel_mount_link_FR_wheel_link_joint1
+      - wheel_mount_link_FR_wheel_link_joint2
+      - wheel_mount_link_FR_wheel_link_joint3
+      - wheel_mount_link_FR_wheel_link_joint4

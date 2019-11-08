@@ -1,0 +1,847 @@
+<?xml version="1.0"?>
+<robot name="tiger" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:include filename="$(find tiger_description)/urdf/config.xacro" />
+	<xacro:include filename="$(find tiger_description)/urdf/imu_macro.xacro" />
+	<xacro:include filename="$(find tiger_description)/urdf/materials.gazebo" />
+	<xacro:include filename="$(find tiger_description)/urdf/tiger_prefix.gazebo" />
+
+  <link name="world"/>
+  <joint name="floating" type="floating">
+	  <parent link ="world"/>
+	  <child link ="base_link"/>
+  </joint>
+
+<!-- Base Link -->
+  <link name="base_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename = "package://tiger_description/meshes/UGV_Full_collision.dae"/>
+      </geometry>"
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename = "package://tiger_description/meshes/UGV_Full.dae"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="-.005751 .191679 .012699" rpy="0 0 0"/>
+      <mass value="60.533"/>
+      <inertia
+        ixx="8.419631033" ixy="-0.030716229" ixz="0.218660855"
+        iyy="10.48145748" iyz="-0.031153097"
+        izz="3.424807371"/>
+    </inertial>
+  </link>
+
+<!-- wheel links -->
+  <link name="FR_wheel_link1">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="4.018025"/>
+      <inertia
+        ixx="0.0222747923" ixy="-0.0" ixz="0.0"
+        iyy="0.02096655598" iyz="-0.0"
+        izz="0.03219387057"/>
+    </inertial>
+  </link>
+	<!-- wheel 2 -->
+	<link name="FR_wheel_link2">
+		 <collision>
+			 <origin xyz="0 0 0" rpy="0 0 0"/>
+			 <geometry>
+				 <!--<cylinder radius=".183" length="0.134"/>-->
+				 <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+			 </geometry>
+		 </collision>
+
+		 <visual>
+			 <origin xyz="0 0 0" rpy="0 0 0"/>
+			 <geometry>
+				 <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+			 </geometry>
+			 <!--material name="orange"/>-->
+		 </visual>
+
+		 <inertial>
+			 <origin xyz="0 0 0" rpy="0 0 0"/>
+			 <mass value="4.018025"/>
+			 <inertia
+				 ixx="0.0222747923" ixy="-0.0" ixz="0.0"
+				 iyy="0.02096655598" iyz="-0.0"
+				 izz="0.03219387057"/>
+		 </inertial>
+	</link>
+	 <!-- wheel 3 -->
+	<link name="FR_wheel_link3">
+		<collision>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <geometry>
+		    <!--<cylinder radius=".183" length="0.134"/>-->
+		    <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+		  </geometry>
+		</collision>
+
+		<visual>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <geometry>
+		    <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+		  </geometry>
+		  <!--material name="orange"/>-->
+		</visual>
+
+		<inertial>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <mass value="4.018025"/>
+		  <inertia
+		    ixx="0.0222747923" ixy="-0.0" ixz="0.0"
+		    iyy="0.02096655598" iyz="-0.0"
+		    izz="0.03219387057"/>
+		</inertial>
+	</link>
+	<!-- wheel 4 -->
+	<link name="FR_wheel_link4">
+			 <collision>
+				 <origin xyz="0 0 0" rpy="0 0 0"/>
+				 <geometry>
+					 <!--<cylinder radius=".183" length="0.134"/>-->
+					 <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+				 </geometry>
+			 </collision>
+
+			 <visual>
+				 <origin xyz="0 0 0" rpy="0 0 0"/>
+				 <geometry>
+					 <mesh filename="package://tiger_description/meshes/centered_wheel_m.dae"/>
+				 </geometry>
+				 <!--material name="orange"/>-->
+			 </visual>
+
+			 <inertial>
+				 <origin xyz="0 0 0" rpy="0 0 0"/>
+				 <mass value="4.018025"/>
+				 <inertia
+					 ixx="0.0222747923" ixy="-0.0" ixz="0.0"
+					 iyy="0.02096655598" iyz="-0.0"
+					 izz="0.03219387057"/>
+			 </inertial>
+	</link>
+
+
+<!-- lower arm links -->
+	<!-- 1 -->
+	<link name="lower_arm_link1">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+      <mass value="1.084329"/>
+      <inertia
+        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+        iyy="0.006021207355" iyz="-0.000000008552"
+        izz="0.005464625605"/>
+    </inertial>
+  </link>
+	<!-- 2 -->
+	<link name="lower_arm_link2">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+      <mass value="1.084329"/>
+      <inertia
+        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+        iyy="0.006021207355" iyz="-0.000000008552"
+        izz="0.005464625605"/>
+    </inertial>
+  </link>
+	<!-- 3 -->
+	<link name="lower_arm_link3">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+      <mass value="1.084329"/>
+      <inertia
+        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+        iyy="0.006021207355" iyz="-0.000000008552"
+        izz="0.005464625605"/>
+    </inertial>
+  </link>
+	<!-- 4 -->
+	<link name="lower_arm_link4">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/lower_arm.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+      <mass value="1.084329"/>
+      <inertia
+        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+        iyy="0.006021207355" iyz="-0.000000008552"
+        izz="0.005464625605"/>
+    </inertial>
+  </link>
+
+
+	<!-- upper arm links -->
+		<!-- 1 -->
+	<link name="upper_arm_link1">
+	    <!--<collision>
+	      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	    </collision>-->
+
+	    <visual>
+	      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	      <!--material name="orange"/>-->
+	    </visual>
+
+	    <inertial>
+	      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+	      <mass value="1.084329"/>
+	      <inertia
+	        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+	        iyy="0.006021207355" iyz="-0.000000008552"
+	        izz="0.005464625605"/>
+	    </inertial>
+	  </link>
+		<!-- 2 -->
+	<link name="upper_arm_link2">
+	    <!--<collision>
+	      <origin xyz="0 0 0" rpy="0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	    </collision>-->
+
+	    <visual>
+	      <origin xyz="0 0 0" rpy="0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	      <!--material name="orange"/>-->
+	    </visual>
+
+	    <inertial>
+	      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+	      <mass value="1.084329"/>
+	      <inertia
+	        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+	        iyy="0.006021207355" iyz="-0.000000008552"
+	        izz="0.005464625605"/>
+	    </inertial>
+	  </link>
+		<!-- 3 -->
+	<link name="upper_arm_link3">
+	    <!--<collision>
+	      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	    </collision>-->
+
+	    <visual>
+	      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	      <!--material name="orange"/>-->
+	    </visual>
+
+	    <inertial>
+	      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+	      <mass value="1.084329"/>
+	      <inertia
+	        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+	        iyy="0.006021207355" iyz="-0.000000008552"
+	        izz="0.005464625605"/>
+	    </inertial>
+	  </link>
+		<!-- 4 -->
+	<link name="upper_arm_link4">
+	    <!--<collision>
+	      <origin xyz="0 0 0" rpy="0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	    </collision>-->
+
+	    <visual>
+	      <origin xyz="0 0 0" rpy="0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://tiger_description/meshes/upper_arm.dae"/>
+	      </geometry>
+	      <!--material name="orange"/>-->
+	    </visual>
+
+	    <inertial>
+	      <origin xyz="-0.1101732593 0 0" rpy="0 0 0"/>
+	      <mass value="1.084329"/>
+	      <inertia
+	        ixx="0.004088747194" ixy="-0.00253129194" ixz="-0.000000012418"
+	        iyy="0.006021207355" iyz="-0.000000008552"
+	        izz="0.005464625605"/>
+	    </inertial>
+	  </link>
+
+
+<!-- wheel mount links -->
+	<!-- 1 -->
+	<link name="wheel_mount_link1">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.01262462256 0.07396586642 0" rpy="0 0 0"/>
+      <mass value="0.4249713766"/>
+      <inertia
+        ixx="0.0007686165785" ixy="-0.00006789793817" ixz="-0.0000008078974523"
+        iyy="0.0003250941295" iyz="-0.000001267754706"
+        izz="0.0008590346304"/>
+    </inertial>
+  </link>
+	<!-- 2 -->
+	<link name="wheel_mount_link2">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.01262462256 0.07396586642 0" rpy="0 0 0"/>
+      <mass value="0.4249713766"/>
+      <inertia
+        ixx="0.0007686165785" ixy="-0.00006789793817" ixz="-0.0000008078974523"
+        iyy="0.0003250941295" iyz="-0.000001267754706"
+        izz="0.0008590346304"/>
+    </inertial>
+  </link>
+	<!-- 3 -->
+	<link name="wheel_mount_link3">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 ${pi} 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.01262462256 0.07396586642 0" rpy="0 0 0"/>
+      <mass value="0.4249713766"/>
+      <inertia
+        ixx="0.0007686165785" ixy="-0.00006789793817" ixz="-0.0000008078974523"
+        iyy="0.0003250941295" iyz="-0.000001267754706"
+        izz="0.0008590346304"/>
+    </inertial>
+  </link>
+	<!-- 4 -->
+	<link name="wheel_mount_link4">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <!--<cylinder radius=".183" length="0.134"/>-->
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://tiger_description/meshes/wheel_mount.dae"/>
+      </geometry>
+      <!--material name="orange"/>-->
+    </visual>
+
+    <inertial>
+      <origin xyz="-0.01262462256 0.07396586642 0" rpy="0 0 0"/>
+      <mass value="0.4249713766"/>
+      <inertia
+        ixx="0.0007686165785" ixy="-0.00006789793817" ixz="-0.0000008078974523"
+        iyy="0.0003250941295" iyz="-0.000001267754706"
+        izz="0.0008590346304"/>
+    </inertial>
+  </link>
+
+
+<!-- base link to lower arm joints-->
+	<!-- 1 -->
+	<joint name="base_link_lower_arm_link_joint1" type="revolute">
+		 <origin xyz="0.282833 0.01687509902 0.500" rpy="0 0 0"/>
+		 <parent link="base_link"/>
+		 <child link="lower_arm_link1"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.85" upper="0.13" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="base_link_lower_arm_link_simple_trans1">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="base_link_lower_arm_link_joint1">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="base_link_lower_arm_link_motor1">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 2 -->
+	<joint name="base_link_lower_arm_link_joint2" type="revolute">
+		 <origin xyz="-0.282833 0.01687509902 0.500" rpy="0 0 0"/>
+		 <parent link="base_link"/>
+		 <child link="lower_arm_link2"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.13" upper="0.85" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="base_link_lower_arm_link_simple_trans2">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="base_link_lower_arm_link_joint2">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="base_link_lower_arm_link_motor2">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 3 -->
+	<joint name="base_link_lower_arm_link_joint3" type="revolute">
+		 <origin xyz="0.282833 0.01687509902 -0.500" rpy="0 0 0"/>
+		 <parent link="base_link"/>
+		 <child link="lower_arm_link3"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.85" upper="0.13" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="base_link_lower_arm_link_simple_trans3">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="base_link_lower_arm_link_joint3">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="base_link_lower_arm_link_motor3">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 4 -->
+	<joint name="base_link_lower_arm_link_joint4" type="revolute">
+		 <origin xyz="-0.282833 0.01687509902 -0.500" rpy="0 0 0"/>
+		 <parent link="base_link"/>
+		 <child link="lower_arm_link4"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.13" upper="0.85" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="base_link_lower_arm_link_simple_trans4">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="base_link_lower_arm_link_joint4">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="base_link_lower_arm_link_motor4">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+
+
+<!-- base link to upper arm joints-->
+		<!-- 1 -->
+		<joint name="base_link_upper_arm_link_joint1" type="revolute">
+			 <origin xyz="0.282833 ${0.130+0.01687509902} 0.500" rpy="0 0 0"/>
+			 <parent link="base_link"/>
+			 <child link="upper_arm_link1"/>
+			 <axis xyz = "0 0 1" />
+
+			 <calibration rising="0.0"/>
+			 <dynamics damping="0.0" friction="0.0"/>
+                         <limit effort="1000" velocity="1.0" lower="-0.85" upper="0.13" />
+		         <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+		</joint>
+
+		<transmission name="base_link_upper_arm_link_simple_trans1">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="base_link_upper_arm_link_joint1">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="base_link_upper_arm_link_motor1">
+				<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+			</actuator>
+		</transmission>
+		<!-- 2 -->
+		<joint name="base_link_upper_arm_link_joint2" type="revolute">
+			 <origin xyz="-0.282833 ${0.130+0.01687509902} 0.500" rpy="0 0 0"/>
+			 <parent link="base_link"/>
+			 <child link="upper_arm_link2"/>
+			 <axis xyz = "0 0 1" />
+
+			 <calibration rising="0.0"/>
+			 <dynamics damping="0.0" friction="0.0"/>
+                         <limit effort="1000" velocity="1.0" lower="-0.13" upper="0.85" />
+		         <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+		</joint>
+
+		<transmission name="base_link_upper_arm_link_simple_trans2">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="base_link_upper_arm_link_joint2">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="base_link_upper_arm_link_motor2">
+				<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+			</actuator>
+		</transmission>
+		<!-- 3 -->
+		<joint name="base_link_upper_arm_link_joint3" type="revolute">
+			 <origin xyz="0.282833 ${0.130+0.01687509902} -0.500" rpy="0 0 0"/>
+			 <parent link="base_link"/>
+			 <child link="upper_arm_link3"/>
+			 <axis xyz = "0 0 1" />
+
+			 <calibration rising="0.0"/>
+                         <limit effort="1000" velocity="1.0" lower="-0.85" upper="0.13" />
+		         <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+		</joint>
+
+		<transmission name="base_link_upper_arm_link_simple_trans3">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="base_link_upper_arm_link_joint3">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="base_link_upper_arm_link_motor3">
+				<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+			</actuator>
+		</transmission>
+		<!-- 4 -->
+		<joint name="base_link_upper_arm_link_joint4" type="revolute">
+			 <origin xyz="-0.282833 ${0.130+0.01687509902} -0.500" rpy="0 0 0"/>
+			 <parent link="base_link"/>
+			 <child link="upper_arm_link4"/>
+			 <axis xyz = "0 0 1" />
+
+			 <calibration rising="0.0"/>
+			 <dynamics damping="0.0" friction="0.0"/>
+                         <limit effort="1000" velocity="1.0" lower="-0.13" upper="0.85" />
+		         <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+		</joint>
+
+		<transmission name="base_link_upper_arm_link_simple_trans4">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="base_link_upper_arm_link_joint4">
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="base_link_upper_arm_link_motor4">
+				<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+			</actuator>
+		</transmission>
+
+
+<!-- lower arm to wheel mount joints-->
+	<!-- 1 -->
+	<joint name="lower_arm_link_wheel_mount_link_joint1" type="revolute">
+		 <origin xyz="0.254 0 0" rpy="0 0 0"/>
+		 <parent link="lower_arm_link1"/>
+		 <child link="wheel_mount_link1"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.13" upper="0.85" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="lower_arm_link_wheel_mount_link_simple_trans1">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="lower_arm_link_wheel_mount_link_joint1">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="lower_arm_link_wheel_mount_link_motor1">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 2 -->
+	<joint name="lower_arm_link_wheel_mount_link_joint2" type="revolute">
+		 <origin xyz="-0.254 0 0" rpy="0 0 0"/>
+		 <parent link="lower_arm_link2"/>
+		 <child link="wheel_mount_link2"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.85" upper="0.13" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="lower_arm_link_wheel_mount_link_simple_trans2">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="lower_arm_link_wheel_mount_link_joint2">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="lower_arm_link_wheel_mount_link_motor2">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 3 -->
+	<joint name="lower_arm_link_wheel_mount_link_joint3" type="revolute">
+		 <origin xyz="0.254 0 0" rpy="0 0 0"/>
+		 <parent link="lower_arm_link3"/>
+		 <child link="wheel_mount_link3"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.13" upper="0.85" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="lower_arm_link_wheel_mount_link_simple_trans3">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="lower_arm_link_wheel_mount_link_joint3">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="lower_arm_link_wheel_mount_link_motor3">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 4 -->
+	<joint name="lower_arm_link_wheel_mount_link_joint4" type="revolute">
+		 <origin xyz="-0.254 0 0" rpy="0 0 0"/>
+		 <parent link="lower_arm_link4"/>
+		 <child link="wheel_mount_link4"/>
+		 <axis xyz = "0 0 1" />
+
+		 <calibration rising="0.0"/>
+		 <dynamics damping="0.0" friction="0.0"/>
+                 <limit effort="1000" velocity="1.0" lower="-0.85" upper="0.13" />
+		 <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+	</joint>
+
+	<transmission name="lower_arm_link_wheel_mount_link_simple_trans4">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="lower_arm_link_wheel_mount_link_joint4">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="lower_arm_link_wheel_mount_link_motor4">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+
+
+<!-- wheel mount to wheel joints-->
+	<!-- 1 -->
+  <joint name="wheel_mount_link_FR_wheel_link_joint1" type="continuous">
+     <origin xyz="0.105701 0.064917 0" rpy="0 0 0"/>
+     <parent link="wheel_mount_link1"/>
+     <child link="FR_wheel_link1"/>
+     <axis xyz = "1 0 0" />
+
+     <calibration rising="0.0"/>
+     <dynamics damping="0.0" friction="10.0"/>
+     <limit effort="1000" velocity="20.0" />
+     <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+  </joint>
+
+	<transmission name="wheel_mount_link_FR_wheel_link_simple_trans1">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="wheel_mount_link_FR_wheel_link_joint1">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="wheel_mount_link_FR_wheel_link_motor1">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 2 -->
+	<joint name="wheel_mount_link_FR_wheel_link_joint2" type="continuous">
+     <origin xyz="-0.105701 0.064917 0" rpy="0 0 0"/>
+     <parent link="wheel_mount_link2"/>
+     <child link="FR_wheel_link2"/>
+     <axis xyz = "1 0 0" />
+
+     <calibration rising="0.0"/>
+     <dynamics damping="0.0" friction="10.0"/>
+     <limit effort="1000" velocity="20.0" />
+     <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+  </joint>
+
+	<transmission name="wheel_mount_link_FR_wheel_link_simple_trans2">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="wheel_mount_link_FR_wheel_link_joint2">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="wheel_mount_link_FR_wheel_link_motor2">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 3 -->
+	<joint name="wheel_mount_link_FR_wheel_link_joint3" type="continuous">
+     <origin xyz="0.105701 0.064917 0" rpy="0 0 0"/>
+     <parent link="wheel_mount_link3"/>
+     <child link="FR_wheel_link3"/>
+     <axis xyz = "1 0 0" />
+
+     <calibration rising="0.0"/>
+     <dynamics damping="0.0" friction="10.0"/>
+     <limit effort="1000" velocity="20.0" />
+     <!--<safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+  </joint>
+
+	<transmission name="wheel_mount_link_FR_wheel_link_simple_trans3">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="wheel_mount_link_FR_wheel_link_joint3">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="wheel_mount_link_FR_wheel_link_motor3">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+	<!-- 4 -->
+	<joint name="wheel_mount_link_FR_wheel_link_joint4" type="continuous">
+     <origin xyz="-0.105701 0.064917 0" rpy="0 0 0"/>
+     <parent link="wheel_mount_link4"/>
+     <child link="FR_wheel_link4"/>
+     <axis xyz = "1 0 0" />
+
+     <calibration rising="0.0"/>
+     <dynamics damping="0.0" friction="10.0"/>
+     <limit effort="1000" velocity="20.0" />
+     <!-- <safety_controller k_velocity="10" k_position="15" soft_lower_limit="-2.0" soft_upper_limit="0.5" /> -->
+  </joint>
+
+	<transmission name="wheel_mount_link_FR_wheel_link_simple_trans4">
+		<type>transmission_interface/SimpleTransmission</type>
+		<joint name="wheel_mount_link_FR_wheel_link_joint4">
+			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+		</joint>
+		<actuator name="wheel_mount_link_FR_wheel_link_motor4">
+			<mechanicalReduction>1</mechanicalReduction> <!-- specify if needed -->
+		</actuator>
+	</transmission>
+
+  <!--sensors-->
+  <xacro:imu_sensor xyz="0 0.35 0" rpy="${M_PI/2} 0 0" parent="base_link" />
+
+
+</robot>

@@ -11,6 +11,10 @@ Build the image for the tiger robot by running the script
 `$ chmod u+x tiger_docker_build.sh`
 `$ ./tiger_docker_build.sh`
 
+Enable the xhost authentication by running the following command. 
+`$ xhost +`
+The command disables xhost authentications. This command is required to run the xterm from the container. This command will be replaced with a much safer option in the future.
+
 Run the docker container script. 
 `$ chmod u+x tiger_docker_run.sh`
 `$ ./tiger_docker_run.sh`

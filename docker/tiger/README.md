@@ -32,7 +32,7 @@ A bash session(session 1) is launched. Run roscore
 
 Open a new bash session(session 2) in the same container from a new terminal
 
-`$ docker exec -it tiger-ceril bash`
+`$ docker exec -it tiger_ceril bash`
 
 From inside the container, navigate to the tiger robot catkin workspace and build the package
 
@@ -55,3 +55,7 @@ Kill the ros application by hitting Ctrl+C key
 quit the container by executing the following command in session 1:
 
 `# exit`
+
+Reinstate X authentication:
+`$ xhost -`
+

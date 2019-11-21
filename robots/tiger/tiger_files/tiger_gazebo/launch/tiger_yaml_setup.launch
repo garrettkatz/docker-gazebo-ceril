@@ -1,0 +1,16 @@
+<launch>
+  <arg name="robot" default="tiger"/>
+
+  <!-- PID gains -->
+  <rosparam file="$(find tiger_gazebo)/config/wheel_pids.yaml" command="load">
+  </rosparam>>
+
+  <rosparam file="$(find tiger_gazebo)/config/arm_pids.yaml" command="load">
+  </rosparam>>
+
+  <!-- Joint effort controllers -->
+  <rosparam file="$(find tiger_gazebo)/config/group_effort_controllers.yaml" command="load">
+  </rosparam>
+
+
+</launch>

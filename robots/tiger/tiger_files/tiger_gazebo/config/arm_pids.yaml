@@ -1,0 +1,14 @@
+tiger:
+  tiger_arm_controller:
+      lower_arm_link_wheel_mount_link_joint1/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      lower_arm_link_wheel_mount_link_joint2/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      lower_arm_link_wheel_mount_link_joint3/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      lower_arm_link_wheel_mount_link_joint4/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_lower_arm_link_joint1/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_lower_arm_link_joint2/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_lower_arm_link_joint3/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_lower_arm_link_joint4/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_upper_arm_link_joint1/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_upper_arm_link_joint2/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_upper_arm_link_joint3/pid: {p: 1000.0, i: 0.01, d: 10.0}
+      base_link_upper_arm_link_joint4/pid: {p: 1000.0, i: 0.01, d: 10.0}

@@ -1,0 +1,30 @@
+<launch>
+  <arg name="robot" default="tiger"/>
+
+  <!--toss URDF up to param server? -->
+  <param name = "robot_description"
+    command = "cat $(find tiger_description)/urdf/tiger_geometric.xacro" />
+
+  <!-- Joint effort controllers with PID gains -->
+  <rosparam file="$(find tiger_gazebo)/config/tiger_controllers.yaml"
+    command="load" />
+
+  <!--spawn all controllers named in args, with PIDs specified in yaml -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+    respawn="false" output="screen" ns = "/tiger" args= "wheel1_effort_controller wheel2_effort_controller wheel3_effort_controller wheel4_effort_controller"/>
+
+  <!-- create a gui to move joints -->
+  <node name = "joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="true"/>
+  </node>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/tiger/joint_states" />
+  </node>
+
+  <!--show in rviz-->
+<!--  <node name="rviz" pkg="rviz" args="-d $(find tiger_gazebo)/launch/tiger.rviz"/>
+-->
+</launch>

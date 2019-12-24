@@ -1,0 +1,8 @@
+prefix=/home/amul/poppy-ws/install
+
+Name: poppy-control
+Description: Description of poppy-control
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/amul/poppy-ws/install/lib 
+Requires: 

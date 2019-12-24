@@ -1,0 +1,2 @@
+poppy-control:poppy-description
+-DCATKIN_DEVEL_PREFIX=/home/amul/poppy-ws/devel -DCMAKE_INSTALL_PREFIX=/home/amul/poppy-ws/install -G Unix Makefiles

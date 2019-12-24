@@ -1,0 +1,8 @@
+prefix=/home/amul/poppy-ws/install
+
+Name: poppy-description
+Description: Description of poppy-description
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/amul/poppy-ws/install/lib 
+Requires: 

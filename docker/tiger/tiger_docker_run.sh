@@ -17,6 +17,8 @@ docker run -it \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     -env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
-    --runtime=nvidia \
     --name=tiger_ceril \
     docker-tiger-ceril
+    # --runtime=nvidia \
+    # --name=tiger_ceril \
+    # docker-tiger-ceril

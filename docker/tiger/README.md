@@ -34,7 +34,7 @@ Open a new bash session(session 2) in the same container from a new terminal
 
 `$ docker exec -it tiger_ceril bash`
 
-From inside the container, navigate to the tiger robot catkin workspace and build the package
+From inside the container, source the entrypoint, navigate to the tiger robot catkin workspace, and build the package:
 
 `# source ros_entrypoint.sh`
 

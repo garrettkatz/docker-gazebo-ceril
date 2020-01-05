@@ -14,7 +14,11 @@ Build the image for the tiger robot by running the script
 
 `$ ./tiger_docker_build.sh`
 
-This build includes X11 and user configuration to support GUIs
+Enable the xhost authentication by running the following command. 
+
+`$ xhost +`
+
+The command disables xhost authentications. This command is required to run the xterm from the container. This command will be replaced with a much safer option in the future.
 
 Run the docker container script. 
 
@@ -22,7 +26,7 @@ Run the docker container script.
 
 `$ ./tiger_docker_run.sh`
 
-This script passes in current host UID/GID as environment variables in the container.  Then it runs `startup.sh` inside the container to configure UID/GID.  Finally it launches a bash session (session 1). Run roscore
+A bash session(session 1) is launched. Run roscore
 
 '# roscore'
 
@@ -51,4 +55,7 @@ Kill the ros application by hitting Ctrl+C key
 quit the container by executing the following command in session 1:
 
 `# exit`
+
+Reinstate X authentication:
+`$ xhost -`
 

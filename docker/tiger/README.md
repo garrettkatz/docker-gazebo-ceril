@@ -28,7 +28,7 @@ This script passes in current host UID/GID as environment variables in the conta
 
 Open a new bash session(session 2) in the same container from a new terminal
 
-`$ docker exec -it tiger_ceril bash`
+`$ docker exec -it tiger-ceril bash`
 
 From inside the container, source the entrypoint, navigate to the tiger robot catkin workspace, and build the package:
 
@@ -51,5 +51,4 @@ Kill the ros application by hitting Ctrl+C key
 quit the container by executing the following command in session 1:
 
 `# exit`
-
 

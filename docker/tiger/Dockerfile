@@ -25,22 +25,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         x11-apps \
     && rm -rf /var/lib/apt/lists/*
 
-# # Copy the nvidia hardware acceleration libraries from the "nvidia/opengl" container
-# COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 \
-#   /usr/local/lib/x86_64-linux-gnu \
-#   /usr/local/lib/x86_64-linux-gnu
+# Copy the nvidia hardware acceleration libraries from the "nvidia/opengl" container
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 \
+  /usr/local/lib/x86_64-linux-gnu \
+  /usr/local/lib/x86_64-linux-gnu
 
-# COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 \
-#   /usr/local/lib/i386-linux-gnu \
-#   /usr/local/lib/i386-linux-gnu
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 \
+  /usr/local/lib/i386-linux-gnu \
+  /usr/local/lib/i386-linux-gnu
 
-# COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 \
-#   /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json \
-#   /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json
+COPY --from=nvidia/opengl:1.0-glvnd-runtime-ubuntu16.04 \
+  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json \
+  /usr/local/share/glvnd/egl_vendor.d/10_nvidia.json
 
-# RUN echo '/usr/local/lib/x86_64-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
-#     echo '/usr/local/lib/i386-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
-#     ldconfig
+RUN echo '/usr/local/lib/x86_64-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
+    echo '/usr/local/lib/i386-linux-gnu' >> /etc/ld.so.conf.d/glvnd.conf && \
+    ldconfig
 
 # Copy the tiger robot files to catkin workspace
 CMD rm -rf catkin_ws
@@ -58,11 +58,11 @@ RUN apt update && \
       apt install -y ros-kinetic-gazebo-ros-pkgs ros-kinetic-teleop-twist-keyboard ros-kinetic-gazebo-ros-control \
      ros-kinetic-ros-controllers
 
-# # nvidia-container-runtime
-# ENV NVIDIA_VISIBLE_DEVICES \
-#     ${NVIDIA_VISIBLE_DEVICES:-all}
-# ENV NVIDIA_DRIVER_CAPABILITIES \
-#     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 # copy source files
 COPY src/ /src

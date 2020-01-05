@@ -26,10 +26,9 @@ docker run -it --rm \
     --env="XAUTHORITY=${XAUTH}" \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    --user="gui" \
-    --env="GUI_UID=${GUI_UID}" \
-    --env="GUI_GID=${GUI_GID}" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    -env="XAUTHORITY=$XAUTH" \
+    --volume="$XAUTH:$XAUTH" \
+    --runtime=nvidia \
     --name=tiger_ceril \
     docker-tiger-ceril
-#     # --runtime=nvidia \
-#     # docker-tiger-ceril

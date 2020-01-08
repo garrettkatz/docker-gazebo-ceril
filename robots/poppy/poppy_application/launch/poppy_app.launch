@@ -1,0 +1,29 @@
+<launch>
+    <arg name="robot" default="poppy"/>
+
+    <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!--package name-->
+        <arg name="world_name" value="$(find poppy_gazebo)/worlds/test.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="recording" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+
+
+    <!-- Robot model and controllers using a JointGroupEffortController -->
+    <include file="$(find poppy_gazebo)/launch/group_controllers.launch">
+        <arg name="robot" default="$(arg robot)"/>
+    </include>
+
+  <node
+      pkg="poppy_application"
+      name="poppy_app"
+      type="mainCode.py"
+      output="screen"
+  />
+
+</launch>

@@ -1,0 +1,16 @@
+<launch>
+  <arg name="robot" default="poppy"/>
+
+  <!-- PID gains -->
+  <rosparam file="$(find poppy_gazebo)/config/lower_body_pids.yaml" command="load">
+  </rosparam>>
+
+  <rosparam file="$(find poppy_gazebo)/config/upper_body_pids.yaml" command="load">
+  </rosparam>>
+
+  <!-- Joint effort controllers -->
+  <rosparam file="$(find poppy_gazebo)/config/group_effort_controllers.yaml" command="load">
+  </rosparam>
+
+
+</launch>

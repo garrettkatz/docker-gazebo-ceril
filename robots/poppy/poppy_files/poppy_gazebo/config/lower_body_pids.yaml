@@ -1,0 +1,13 @@
+poppy:
+  poppy_lower_body_controller:
+    gains:
+      r_hip_x: {p: 100.0, i: 0.01, d: 10.0}
+      r_hip_z: {p: 100.0, i: 0.01, d: 10.0}
+      r_hip_y: {p: 100.0, i: 0.01, d: 10.0}
+      r_knee_y: {p: 100.0, i: 0.01, d: 10.0}
+      r_ankle_y: {p: 100.0, i: 0.01, d: 10.0}
+      l_hip_x: {p: 100.0, i: 0.01, d: 10.0}
+      l_hip_z: {p: 100.0, i: 0.01, d: 10.0}
+      l_hip_y: {p: 100.0, i: 0.01, d: 10.0}
+      l_knee_y: {p: 100.0, i: 0.01, d: 10.0}
+      l_ankle_y: {p: 100.0, i: 0.01, d: 10.0}

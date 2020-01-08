@@ -1,0 +1,34 @@
+<launch>
+  <arg name="publish_frequency" default="500" />
+
+  <!-- Joint state controller -->
+  <!--<rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />-->
+  <rosparam subst_value="true">
+    poppy:
+      joint_state_controller:
+        type: joint_state_controller/JointStateController
+        publish_rate: $(arg publish_frequency)
+  </rosparam>
+
+  <!-- Default controllers --> <!--commonly used for effortgroupcontroller & positiongroupcontroller-->
+  <node name="default_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" ns="/poppy"
+        args="joint_state_controller
+              poppy_lower_body_controller
+              poppy_upper_body_controller"/>
+
+    <!-- Default position controllers --> <!--commonly used for individual positioncontroller-->
+  <!--<node name="default_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" ns="/hdt_saffir"
+        args="joint_state_controller
+              left_joint1_controller left_joint2_controller
+              left_joint3_controller left_joint4_controller
+              left_joint5_controller left_joint6_controller
+              left_joint7_controller left_thumb_base_controller
+              left_thumb_prox_controller left_index_prox_controller
+              left_ring_prox_controller
+              right_joint1_controller right_joint2_controller
+              right_joint3_controller right_joint4_controller
+              right_joint5_controller right_joint6_controller
+              right_joint7_controller right_thumb_base_controller
+              right_thumb_prox_controller right_index_prox_controller
+              right_ring_prox_controller"/>-->
+</launch>

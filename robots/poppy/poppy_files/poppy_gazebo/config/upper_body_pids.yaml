@@ -1,0 +1,18 @@
+poppy:
+  poppy_upper_body_controller:
+    gains:
+      abs_y: {p: 1000.0, i: 0.01, d: 10.0}
+      abs_x: {p: 1000.0, i: 0.01, d: 10.0}
+      abs_z: {p: 1000.0, i: 0.01, d: 10.0}
+      bust_y: {p: 1000.0, i: 0.01, d: 10.0}
+      bust_x: {p: 1000.0, i: 0.01, d: 10.0}
+      head_z: {p: 1000.0, i: 0.01, d: 10.0}
+      head_y: {p: 1000.0, i: 0.01, d: 10.0}
+      l_shoulder_y: {p: 1000.0, i: 0.01, d: 10.0}
+      l_shoulder_x: {p: 1000.0, i: 0.01, d: 10.0}
+      l_arm_z: {p: 1000.0, i: 0.01, d: 10.0}
+      l_elbow_y: {p: 1000.0, i: 0.01, d: 10.0}
+      r_shoulder_y: {p: 1000.0, i: 0.01, d: 10.0}
+      r_shoulder_x: {p: 1000.0, i: 0.01, d: 10.0}
+      r_arm_z: {p: 1000.0, i: 0.01, d: 10.0}
+      r_elbow_y: {p: 1000.0, i: 0.01, d: 10.0}

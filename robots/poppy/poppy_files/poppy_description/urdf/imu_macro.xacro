@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="imu">
+
+  <xacro:macro name="imu_sensor" params="xyz rpy parent">
+
+    <!-- import gazebo definitions -->
+    <xacro:include filename="$(find poppy_description)/urdf/imu.gazebo" />
+    <xacro:imu_gazebo/>
+
+    <joint name="imu_sensor_joint" type="fixed">
+      <axis xyz="0 0 1" />
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="imu_sensor_link"/>
+    </joint>
+
+    <link name="imu_sensor_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.044 0.024 0.011"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.044 0.024 0.011"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+      <inertial>
+        <mass value="0.018" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.0000010455" ixy="0" ixz="0" iyy="0.0000030855" iyz="0" izz="0.0000037678" />
+      </inertial>
+    </link>
+
+  </xacro:macro>
+
+</robot>

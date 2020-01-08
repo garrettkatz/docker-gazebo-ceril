@@ -14,11 +14,7 @@ Build the image for the poppy robot by running the script
 
 `$ ./poppy_docker_build.sh`
 
-Enable the xhost authentication by running the following command. 
-
-`$ xhost +`
-
-The command disables xhost authentications. This command is required to run the xterm from the container. This command will be replaced with a much safer option in the future.
+This build includes X11 and user configuration to support GUIs
 
 Run the docker container script. 
 
@@ -26,7 +22,7 @@ Run the docker container script.
 
 `$ ./poppy_docker_run.sh`
 
-A bash session(session 1) is launched. Run roscore
+This script passes in current host UID/GID as environment variables in the container.  Then it runs `startup.sh` inside the container to configure UID/GID.  Finally it launches a bash session (session 1). Run roscore
 
 '# roscore'
 
@@ -34,11 +30,11 @@ Open a new bash session(session 2) in the same container from a new terminal
 
 `$ docker exec -it poppy_ceril bash`
 
-From inside the container, navigate to the poppy robot catkin workspace and build the package
+From inside the container, source the entrypoint, navigate to the poppy robot catkin workspace, and build the package:
 
 `# source ros_entrypoint.sh`
 
-`# cd poppy_ws`
+`# cd catkin_ws`
 
 `# catkin_make`
 

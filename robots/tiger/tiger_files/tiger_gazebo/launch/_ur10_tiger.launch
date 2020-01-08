@@ -15,7 +15,7 @@
 
 
   <!-- Robot model and controllers using a JointGroupEffortController -->
-  <include file="$(find tiger_gazebo)/launch/group_controllers.launch">
+  <include file="$(find tiger_gazebo)/launch/_ur10_group_controllers.launch">
     <arg name="robot" default="$(arg robot)"/>
   </include>
 

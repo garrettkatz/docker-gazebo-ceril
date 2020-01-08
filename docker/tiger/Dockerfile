@@ -56,7 +56,7 @@ COPY robots/tiger/tiger_application/ /catkin_ws/src/tiger_application
 # Install ros kinetic packages
 RUN apt update && \
       apt install -y ros-kinetic-gazebo-ros-pkgs ros-kinetic-teleop-twist-keyboard ros-kinetic-gazebo-ros-control \
-     ros-kinetic-ros-controllers
+     ros-kinetic-ros-controllers ros-kinetic-universal-robots
 
 # # nvidia-container-runtime
 # ENV NVIDIA_VISIBLE_DEVICES \

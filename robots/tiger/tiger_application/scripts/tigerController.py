@@ -32,10 +32,16 @@ class TigerController(GazeboEnvironment):
             'lower_arm_link_wheel_mount_link_joint2': 9,
             'lower_arm_link_wheel_mount_link_joint3': 10,
             'lower_arm_link_wheel_mount_link_joint4': 11,
-            'wheel_mount_link_FR_wheel_link_joint1': 12,
-            'wheel_mount_link_FR_wheel_link_joint2': 13,
-            'wheel_mount_link_FR_wheel_link_joint3': 14,
-            'wheel_mount_link_FR_wheel_link_joint4': 15
+            'ur10_custom_elbow_joint': 12,
+            'ur10_custom_shoulder_lift_joint': 13,
+            'ur10_custom_shoulder_pan_joint': 14,
+            'ur10_custom_wrist_1_joint': 15,
+            'ur10_custom_wrist_2_joint': 16,
+            'ur10_custom_wrist_3_joint': 17,
+            'wheel_mount_link_FR_wheel_link_joint1': 18,
+            'wheel_mount_link_FR_wheel_link_joint2': 19,
+            'wheel_mount_link_FR_wheel_link_joint3': 20,
+            'wheel_mount_link_FR_wheel_link_joint4': 21
         }
 
         # tf_names_dict corresponds to the frames for the links mounted at the joints
@@ -56,6 +62,13 @@ class TigerController(GazeboEnvironment):
             13: "/FR_wheel_link2",
             14: "/FR_wheel_link3",
             15: "/FR_wheel_link4",
+            16: "/ur10_custom_base_link",
+            17: "/ur10_custom_shoulder_link",
+            18: "/ur10_custom_upper_arm_link",
+            19: "/ur10_custom_forearm_link",
+            20: "/ur10_custom_wrist_1_link",
+            21: "/ur10_custom_wrist_2_link",
+            22: "/ur10_custom_wrist_3_link"
         }
 
         self._joint_names = []

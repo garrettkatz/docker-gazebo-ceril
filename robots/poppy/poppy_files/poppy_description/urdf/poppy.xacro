@@ -6,12 +6,12 @@
 	<xacro:include filename="$(find poppy_description)/urdf/materials.gazebo" />
 	<xacro:include filename="$(find poppy_description)/urdf/poppy_prefix.gazebo" />
 
-
+	<!--
 	<link name="world"/>
 	<joint name="floating" type="floating">
 		<parent link ="world"/>
 		<child link ="pelvis"/>
-	</joint>
+	</joint>-->
 
 
 	<link name="pelvis">
@@ -1073,7 +1073,7 @@
 
 
 <!--sensors-->
-<xacro:imu_sensor xyz="0 0.35 0" rpy="${M_PI/2} 0 0" parent="pelvis" />
+<xacro:imu_sensor xyz="0 0.35 0" rpy="${M_PI/2} 0 0" parent="r_foot" />
 
 	<!-- Gazebo plugin for ROS Control -->
 	<!--

@@ -23,10 +23,10 @@ GUI_GID=$(id -g)
 docker run -it --rm \
     --volume="$XSOCK:$XSOCK:rw" \
     --volume="$XAUTH:$XAUTH:rw" \
+    --volume="/home/outpost/docker-gazebo-ceril/src:/src" \
     --env="XAUTHORITY=${XAUTH}" \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    --user="gui" \
     --env="GUI_UID=${GUI_UID}" \
     --env="GUI_GID=${GUI_GID}" \
     --name=poppy_ceril \

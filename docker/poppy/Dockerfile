@@ -67,10 +67,8 @@ RUN apt update && \
 # copy source files
 COPY src/ /src
 
-# Set permissions for gui user
-RUN chown -R gui:gui /src
-RUN chown -R gui:gui /opt
-RUN chown -R gui:gui /catkin_ws
+# # Set permissions for gui user to use ROS
+# RUN chown -R gui:gui /opt
 
 CMD ["/src/startup.sh"]
 # CMD ["/bin/bash"]

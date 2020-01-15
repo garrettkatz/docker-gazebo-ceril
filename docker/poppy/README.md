@@ -22,13 +22,14 @@ Run the docker container script.
 
 `$ ./poppy_docker_run.sh`
 
-This script passes in current host UID/GID as environment variables in the container.  Then it runs `startup.sh` inside the container to configure UID/GID.  Finally it launches a bash session (session 1). Run roscore
+This script passes in current host UID/GID as environment variables in the container.  Then it runs `startup.sh` inside the container to configure UID/GID for X server access.  Then it configures the gui user to enable ROS usage.  Finally it launches a bash session as the gui user (session 1).  In that session, source the ROS entrypoint and run roscore:
 
-'# roscore'
+`$ source ros_entrypoint.sh`
+`$ roscore`
 
 Open a new bash session(session 2) in the same container from a new terminal
 
-`$ docker exec -it poppy_ceril bash`
+`$ docker exec -it poppy_ceril /src/startup.sh`
 
 From inside the container, source the entrypoint, navigate to the poppy robot catkin workspace, and build the package:
 

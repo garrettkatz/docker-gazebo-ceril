@@ -31,7 +31,7 @@ XAUTH=/tmp/.docker.xauth
 docker run -dit \
     --volume="$XSOCK:$XSOCK:rw" \
     --volume="$XAUTH:$XAUTH:rw" \
-    --volume="/home/outpost/docker-gazebo-ceril/src:/src" \
+    --volume="/home/$USER/docker-gazebo-ceril/src:/src" \
     --env="XAUTHORITY=${XAUTH}" \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \

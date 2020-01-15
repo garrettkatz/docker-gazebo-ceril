@@ -67,9 +67,6 @@ RUN apt update && \
 # copy source files
 COPY src/ /src
 
-# # Set permissions for gui user to use ROS
-# RUN chown -R gui:gui /opt
-
 CMD ["/src/startup.sh"]
 # CMD ["/bin/bash"]
 

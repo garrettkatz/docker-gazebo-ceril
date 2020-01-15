@@ -7,10 +7,27 @@ docker build -f ./docker/poppy/Dockerfile -t="docker-poppy-ceril" .
 docker rm -f poppy_ceril
 
 # Configure container
-XSOCK=/tmp/.X11-unix
-XAUTH=/tmp/.docker.xauth
 GUI_UID=$(id -u)
 GUI_GID=$(id -g)
+XSOCK=/tmp/.X11-unix
+XAUTH=/tmp/.docker.xauth
+
+# # Might need this if xauth doesn't already exist
+# if [ ! -f $XAUTH ]
+# then
+#     xauth_list=$(xauth nlist :0 | sed -e 's/^..../ffff/')
+#     if [ ! -z "$xauth_list" ]
+#     then
+#         echo $xauth_list | xauth -f $XAUTH nmerge -
+#     else
+#         touch $XAUTH
+#     fi
+#     chmod a+r $XAUTH
+# fi
+# # ---- or maybe ----
+# touch $XAUTH
+# xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+
 docker run -dit \
     --volume="$XSOCK:$XSOCK:rw" \
     --volume="$XAUTH:$XAUTH:rw" \

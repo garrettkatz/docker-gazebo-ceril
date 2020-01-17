@@ -13,7 +13,8 @@
   <node name="default_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" ns="/tiger"
         args="joint_state_controller
               tiger_wheel_controller
-              tiger_arm_controller"/>
+              tiger_arm_controller
+              tiger_ur10_controller"/>
 
     <!-- Default position controllers --> <!--commonly used for individual positioncontroller-->
   <!--<node name="default_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" ns="/hdt_saffir"

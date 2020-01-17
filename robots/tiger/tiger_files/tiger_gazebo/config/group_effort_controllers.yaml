@@ -25,3 +25,12 @@ tiger:
       - wheel_mount_link_FR_wheel_link_joint2
       - wheel_mount_link_FR_wheel_link_joint3
       - wheel_mount_link_FR_wheel_link_joint4
+  tiger_ur10_controller:
+    type: position_controllers/JointGroupPositionController
+    joints:
+      - ur10_custom_shoulder_pan_joint
+      - ur10_custom_shoulder_lift_joint
+      - ur10_custom_elbow_joint
+      - ur10_custom_wrist_1_joint
+      - ur10_custom_wrist_2_joint
+      - ur10_custom_wrist_3_joint

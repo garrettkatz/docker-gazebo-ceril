@@ -8,6 +8,12 @@
   <rosparam file="$(find tiger_gazebo)/config/arm_pids.yaml" command="load">
   </rosparam>>
 
+  <rosparam file="$(find tiger_gazebo)/config/ur10_arm_pids_default.yaml" command="load">
+  </rosparam>>
+
+  <rosparam file="$(find tiger_gazebo)/config/ur10_arm_pids.yaml" command="load">
+  </rosparam>>
+
   <!-- Joint effort controllers -->
   <rosparam file="$(find tiger_gazebo)/config/group_effort_controllers.yaml" command="load">
   </rosparam>

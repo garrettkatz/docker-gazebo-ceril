@@ -72,7 +72,7 @@ class TigerController(GazeboEnvironment):
         }
 
         self._joint_names = []
-        self._joint_angles = np.zeros((16, 1), dtype=np.float64)
+        self._joint_angles = np.zeros((22, 1), dtype=np.float64)
         self._tf_listener = tf.TransformListener()
 
     def _check_imu_ready(self):
@@ -191,11 +191,11 @@ class TigerController(GazeboEnvironment):
         Function returns the position of the frames with respect to base
         :return: arrays of orientation and position of size 16
         """
-        joint_position = np.zeros((16, 3), dtype=np.float64)
-        joint_orientation = np.zeros((16, 4), dtype=np.float64)
+        joint_position = np.zeros((22, 3), dtype=np.float64)
+        joint_orientation = np.zeros((22, 4), dtype=np.float64)
         now = rospy.Time.now()
         self._tf_listener.waitForTransform("/base_link", self._tf_names_dict[0], now, rospy.Duration(1.5))
-        for ind in range(16):
+        for ind in range(22):
             try:
                 (trans, rot) = self._tf_listener.lookupTransform("/base_link", self._tf_names_dict[ind], now)
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):

@@ -1,8 +1,8 @@
 gazebo_ros_control:
     pid_gains:
-      ur10_custom_shoulder_pan_joint: {p: 1000.0, i: 0.01, d: 10.0}
-      ur10_custom_shoulder_lift_joint: {p: 800.0, i: 0.01, d: 10.0}
-      ur10_custom_elbow_joint: {p: -100.0, i: 0.01, d: 10.0}
-      ur10_custom_wrist_1_joint: {p: 100.0, i: 0.01, d: 10.0}
-      ur10_custom_wrist_2_joint: {p: 100.0, i: 0.01, d: 10.0}
-      ur10_custom_wrist_3_joint: {p: 100.0, i: 0.01, d: 10.0}
+      ur10_custom_shoulder_pan_joint: {p: 0.0, i: 0.0, d: 0.0}
+      ur10_custom_shoulder_lift_joint: {p: 0.0, i: 0.0, d: 0.0}
+      ur10_custom_elbow_joint: {p: 0.0, i: 0.0, d: 0.0}
+      ur10_custom_wrist_1_joint: {p: 0.0, i: 0.0, d: 0.0}
+      ur10_custom_wrist_2_joint: {p: 0.0, i: 0.0, d: 0.0}
+      ur10_custom_wrist_3_joint: {p: 0.0, i: 0.0, d: 0.0}

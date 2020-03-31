@@ -851,6 +851,11 @@
 		</actuator>
 	</transmission>
 
+	<gazebo>
+		<plugin name="force_joint" filename="libforce_joint_plugin.so"/>
+<!--		<plugin name="model_push" filename="libfor.so" />-->
+	</gazebo>
+
   <!--sensors-->
   <xacro:imu_sensor xyz="0 0.35 0" rpy="${M_PI/2} 0 0" parent="base_link" />
 

@@ -35,6 +35,8 @@ CMD mkdir -p catkin_ws/src
 
 CMD source ./ros_entrypoint.sh
 
+COPY robots/tiger/force_joint_plugin/ /catkin_ws/src/force_joint_plugin
+
 COPY robots/tiger/tiger_files/ /catkin_ws/src/tiger_files
 
 COPY robots/tiger/tiger_application/ /catkin_ws/src/tiger_application

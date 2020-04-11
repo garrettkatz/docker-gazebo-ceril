@@ -4,6 +4,7 @@ import rospy
 from gazeboEnvironment import GazeboEnvironment
 from sensor_msgs.msg import JointState
 from sensor_msgs.msg import Imu
+from std_msgs.msg import Float32
 import tf
 
 
@@ -69,6 +70,15 @@ class TigerController(GazeboEnvironment):
             20: "/ur10_custom_wrist_1_link",
             21: "/ur10_custom_wrist_2_link",
             22: "/ur10_custom_wrist_3_link"
+        }
+
+        self._pub_names_dict = {
+            0: "ur10_shoulder_pan_joint",
+            1: "ur10_shoulder_lift_joint",
+            2: "ur10_elbow_lift_joint",
+            3: "ur10_wrist_joint_1",
+            4: "ur10_wrist_joint_2",
+            5: "ur10_wrist_joint_3"
         }
 
         self._joint_names = []
@@ -142,21 +152,25 @@ class TigerController(GazeboEnvironment):
         "Callback to update the laser scan ros data"
         self.imu = data
 
-    # def _check_publishers_connection(self):
-    #     """
-    #     Checks that all the publishers are working
-    #     :return:
-    #     """
-    #     rate = rospy.Rate(10)  # 10hz
-    #     while self._cmd_vel_pub.get_num_connections() == 0 and not rospy.is_shutdown():
-    #       rospy.loginfo("tiger_application: ""tiger_application: "+("No susbribers to _cmd_vel_pub yet so we wait and try again")
-    #       try:
-    #         rate.sleep()
-    #       except rospy.ROSInterruptException:
-    #         # This is to avoid error when world is rested, time when backwards.
-    #         pass
-    #     rospy.loginfo("tiger_application: ""tiger_application: "+("_cmd_vel_pub Publisher Connected")
-    #     rospy.loginfo("tiger_application: ""tiger_application: "+("All Publishers READY")
+    def _check_publishers_connection(self):
+        """
+        Checks that all the publishers are working
+        :return:
+        """
+        rate = rospy.Rate(10)  # 10hz
+
+        for ind in range(len(self._ur10_joint)):
+
+            while self._ur10_joint[ind].get_num_connections() == 0 and not rospy.is_shutdown():
+              rospy.loginfo("tiger_application: tiger_application: "+
+                            "No subscribers to" + self._pub_names_dict[ind] + " yet so we wait and try again")
+              try:
+                rate.sleep()
+              except rospy.ROSInterruptException:
+                # This is to avoid error when world is rested, time when backwards.
+                pass
+            rospy.loginfo("tiger_application: tiger_application: "+ self._pub_names_dict[ind] + " Publisher Connected")
+        rospy.loginfo("tiger_application: ""tiger_application: "+("All Publishers READY"))
 
     def initialize_controller(self):
         """
@@ -171,10 +185,19 @@ class TigerController(GazeboEnvironment):
         rospy.Subscriber("/tiger/joint_states", JointState, self._joint_states_callback)
         # IMU Subscriber to be added later
 
+        self._ur10_joint = []
+
+        self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_shoulder_pan_joint', Float32, queue_size=1))
+        self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_shoulder_lift_joint', Float32, queue_size=1))
+        self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_elbow_joint', Float32, queue_size=1))
+        self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_wrist_1_joint', Float32, queue_size=1))
+        self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_wrist_2_joint', Float32, queue_size=1))
+        self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_wrist_3_joint', Float32, queue_size=1))
+
         # self._cmd_vel_pub = rospy.Publisher('/mobile_base/commands/velocity', Twist, queue_size=1)
         # self.set_model_state_publisher = rospy.Publisher("/gazebo/set_model_state",ModelState,queue_size=100)
         #
-        # self._check_publishers_connection()
+        self._check_publishers_connection()
 
         # Adding a TF listener here
         self._check_tf_listener_ready()
@@ -185,6 +208,16 @@ class TigerController(GazeboEnvironment):
         Return the computed joint_angles
         """
         return self._joint_angles, self._joint_names
+
+    def set_joint_states(self, ur10_joint_list):
+        """
+        Function to set the joint states of the UR10 arm by publishing on the ROS topic
+        :param ur10_joint_list:
+        :return:
+        """
+        for ind in range(len(ur10_joint_list)):
+            rospy.loginfo("Publishing to joint: " + self._pub_names_dict[ind] + " value: " + str(ur10_joint_list[ind]) + " rad")
+            self._ur10_joint[ind].publish(ur10_joint_list[ind])
 
     def get_position(self):
         """

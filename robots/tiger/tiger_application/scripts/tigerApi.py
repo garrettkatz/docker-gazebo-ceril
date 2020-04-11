@@ -28,9 +28,50 @@ class TigerApi:
         """
         return self._tiger_controller.get_position()
 
+    def set_joint_states(self):
+        """
+        Function sets the UR10 arm joints to the required angles
+        :return:
+        """
+        ur10_joints = []
+        ur10_shoulder_pan = input("Enter the shoulder pan joint angle in rads: -1.7 to 1.7\n")
+        if ur10_shoulder_pan > 1.7 or ur10_shoulder_pan < -1.7:
+            ur10_shoulder_pan = 0
+        ur10_joints.append(ur10_shoulder_pan)
+
+        ur10_shoulder_lift = input("Enter the shoulder lift joint angle in rads: -1.7 to 0\n")
+        if ur10_shoulder_lift > 0 or ur10_shoulder_lift < -1.7:
+            ur10_shoulder_lift = 0
+        ur10_joints.append(ur10_shoulder_lift)
+
+        ur10_elbow_joint = input("Enter the elbow joint angle in rads: -1.7 to 0\n")
+        if ur10_elbow_joint > 0 or ur10_elbow_joint < -1.7:
+            ur10_elbow_joint = 0
+        ur10_joints.append(ur10_elbow_joint)
+
+        ur10_wrist_1_joint = input("Enter the wrist_1_joint angle in rads: -1.7 to 1.7\n")
+        if ur10_wrist_1_joint > 1.7 or ur10_wrist_1_joint < -1.7:
+            ur10_wrist_1_joint = 0
+        ur10_joints.append(ur10_wrist_1_joint)
+
+        ur10_wrist_2_joint = input("Enter the wrist_2_joint angle in rads: -1.7 to 1.7\n")
+        if ur10_wrist_2_joint > 1.7 or ur10_wrist_2_joint < -1.7:
+            ur10_wrist_2_joint = 0
+        ur10_joints.append(ur10_wrist_2_joint)
+
+        ur10_wrist_3_joint = input("Enter the wrist_2_joint angle in rads: -1.7 to 1.7\n")
+        if ur10_wrist_3_joint > 1.7 or ur10_wrist_3_joint < -1.7:
+            ur10_wrist_3_joint = 0
+        ur10_joints.append(ur10_wrist_3_joint)
+
+        print("Displayed joints are:")
+        print(ur10_joints)
+        self._tiger_controller.set_joint_states(ur10_joints)
+
     def close(self):
         """
         Function closes the connection to gazebo
         :return: arrays of orientation and position of size 16
         """
+        rospy.loginfo("Closing the tiger robot")
         self._tiger_controller = None

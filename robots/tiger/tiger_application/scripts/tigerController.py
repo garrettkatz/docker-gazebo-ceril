@@ -8,6 +8,8 @@ from std_msgs.msg import Float32
 import tf
 
 
+NUM_UR10_JOINTS = 6
+
 class TigerController(GazeboEnvironment):
 
     def __init__(self):
@@ -20,56 +22,75 @@ class TigerController(GazeboEnvironment):
 
         # Joint names is a list that acts as a placeholder for the link names in case we would like to log the output to
         # console
+        # All joint names of the tiger robot. Commented for now and can be used in the future
+        # self._joints_dict = {
+        #     'base_link_lower_arm_link_joint1': 0,
+        #     'base_link_lower_arm_link_joint2': 1,
+        #     'base_link_lower_arm_link_joint3': 2,
+        #     'base_link_lower_arm_link_joint4': 3,
+        #     'base_link_upper_arm_link_joint1': 4,
+        #     'base_link_upper_arm_link_joint2': 5,
+        #     'base_link_upper_arm_link_joint3': 6,
+        #     'base_link_upper_arm_link_joint4': 7,
+        #     'lower_arm_link_wheel_mount_link_joint1': 8,
+        #     'lower_arm_link_wheel_mount_link_joint2': 9,
+        #     'lower_arm_link_wheel_mount_link_joint3': 10,
+        #     'lower_arm_link_wheel_mount_link_joint4': 11,
+        #     'ur10_custom_elbow_joint': 12,
+        #     'ur10_custom_shoulder_lift_joint': 13,
+        #     'ur10_custom_shoulder_pan_joint': 14,
+        #     'ur10_custom_wrist_1_joint': 15,
+        #     'ur10_custom_wrist_2_joint': 16,
+        #     'ur10_custom_wrist_3_joint': 17,
+        #     'wheel_mount_link_FR_wheel_link_joint1': 18,
+        #     'wheel_mount_link_FR_wheel_link_joint2': 19,
+        #     'wheel_mount_link_FR_wheel_link_joint3': 20,
+        #     'wheel_mount_link_FR_wheel_link_joint4': 21
+        # }
+
         self._joints_dict = {
-            'base_link_lower_arm_link_joint1': 0,
-            'base_link_lower_arm_link_joint2': 1,
-            'base_link_lower_arm_link_joint3': 2,
-            'base_link_lower_arm_link_joint4': 3,
-            'base_link_upper_arm_link_joint1': 4,
-            'base_link_upper_arm_link_joint2': 5,
-            'base_link_upper_arm_link_joint3': 6,
-            'base_link_upper_arm_link_joint4': 7,
-            'lower_arm_link_wheel_mount_link_joint1': 8,
-            'lower_arm_link_wheel_mount_link_joint2': 9,
-            'lower_arm_link_wheel_mount_link_joint3': 10,
-            'lower_arm_link_wheel_mount_link_joint4': 11,
-            'ur10_custom_elbow_joint': 12,
-            'ur10_custom_shoulder_lift_joint': 13,
-            'ur10_custom_shoulder_pan_joint': 14,
-            'ur10_custom_wrist_1_joint': 15,
-            'ur10_custom_wrist_2_joint': 16,
-            'ur10_custom_wrist_3_joint': 17,
-            'wheel_mount_link_FR_wheel_link_joint1': 18,
-            'wheel_mount_link_FR_wheel_link_joint2': 19,
-            'wheel_mount_link_FR_wheel_link_joint3': 20,
-            'wheel_mount_link_FR_wheel_link_joint4': 21
+            'ur10_custom_shoulder_pan_joint': 0,
+            'ur10_custom_shoulder_lift_joint': 1,
+            'ur10_custom_elbow_joint': 2,
+            'ur10_custom_wrist_1_joint': 3,
+            'ur10_custom_wrist_2_joint': 4,
+            'ur10_custom_wrist_3_joint': 5,
         }
 
         # tf_names_dict corresponds to the frames for the links mounted at the joints
+        # All tf names of the tiger robot. Commented for now to use it later.
+        # self._tf_names_dict = {
+        #     0: "/lower_arm_link1",
+        #     1: "/lower_arm_link2",
+        #     2: "/lower_arm_link3",
+        #     3: "/lower_arm_link4",
+        #     4: "/upper_arm_link1",
+        #     5: "/upper_arm_link2",
+        #     6: "/upper_arm_link3",
+        #     7: "/upper_arm_link4",
+        #     8: "/wheel_mount_link1",
+        #     9: "/wheel_mount_link2",
+        #     10: "/wheel_mount_link3",
+        #     11: "/wheel_mount_link4",
+        #     12: "/FR_wheel_link1",
+        #     13: "/FR_wheel_link2",
+        #     14: "/FR_wheel_link3",
+        #     15: "/FR_wheel_link4",
+        #     16: "/ur10_custom_base_link",
+        #     17: "/ur10_custom_shoulder_link",
+        #     18: "/ur10_custom_upper_arm_link",
+        #     19: "/ur10_custom_forearm_link",
+        #     20: "/ur10_custom_wrist_1_link",
+        #     21: "/ur10_custom_wrist_2_link",
+        #     22: "/ur10_custom_wrist_3_link"
+        # }
         self._tf_names_dict = {
-            0: "/lower_arm_link1",
-            1: "/lower_arm_link2",
-            2: "/lower_arm_link3",
-            3: "/lower_arm_link4",
-            4: "/upper_arm_link1",
-            5: "/upper_arm_link2",
-            6: "/upper_arm_link3",
-            7: "/upper_arm_link4",
-            8: "/wheel_mount_link1",
-            9: "/wheel_mount_link2",
-            10: "/wheel_mount_link3",
-            11: "/wheel_mount_link4",
-            12: "/FR_wheel_link1",
-            13: "/FR_wheel_link2",
-            14: "/FR_wheel_link3",
-            15: "/FR_wheel_link4",
-            16: "/ur10_custom_base_link",
-            17: "/ur10_custom_shoulder_link",
-            18: "/ur10_custom_upper_arm_link",
-            19: "/ur10_custom_forearm_link",
-            20: "/ur10_custom_wrist_1_link",
-            21: "/ur10_custom_wrist_2_link",
-            22: "/ur10_custom_wrist_3_link"
+            0: "/ur10_custom_shoulder_link",
+            1: "/ur10_custom_upper_arm_link",
+            2: "/ur10_custom_forearm_link",
+            3: "/ur10_custom_wrist_1_link",
+            4: "/ur10_custom_wrist_2_link",
+            5: "/ur10_custom_wrist_3_link"
         }
 
         self._pub_names_dict = {
@@ -81,8 +102,8 @@ class TigerController(GazeboEnvironment):
             5: "ur10_wrist_joint_3"
         }
 
-        self._joint_names = []
-        self._joint_angles = np.zeros((22, 1), dtype=np.float64)
+        self._joint_names = ["" for x in range(NUM_UR10_JOINTS)]
+        self._joint_angles = np.zeros((NUM_UR10_JOINTS, 1), dtype=np.float64)
         self._tf_listener = tf.TransformListener()
 
     def _check_imu_ready(self):
@@ -112,8 +133,9 @@ class TigerController(GazeboEnvironment):
 
         # Populate the joint_names list here once.
         for ind in range(len(joint_states.name)):
-            joint_ind = self._joints_dict[joint_states.name[ind]]
-            self._joint_names.append(joint_states.name[ind])
+            joint_ind = self._joints_dict.get(joint_states.name[ind])
+            if joint_ind != None:
+                self._joint_names[joint_ind] = joint_states.name[ind]
         return
 
     def _check_all_sensors_ready(self):
@@ -144,8 +166,9 @@ class TigerController(GazeboEnvironment):
         Callback to update the joint_states
         """
         for ind in range(len(data.name)):
-            joint_ind = self._joints_dict[data.name[ind]]
-            self._joint_angles[joint_ind] = data.position[ind]
+            joint_ind = self._joints_dict.get(data.name[ind])
+            if joint_ind != None:
+                self._joint_angles[joint_ind] = data.position[ind]
         return
 
     def _imu_callback(self, data):
@@ -224,11 +247,11 @@ class TigerController(GazeboEnvironment):
         Function returns the position of the frames with respect to base
         :return: arrays of orientation and position of size 16
         """
-        joint_position = np.zeros((22, 3), dtype=np.float64)
-        joint_orientation = np.zeros((22, 4), dtype=np.float64)
+        joint_position = np.zeros((NUM_UR10_JOINTS, 3), dtype=np.float64)
+        joint_orientation = np.zeros((NUM_UR10_JOINTS, 4), dtype=np.float64)
         now = rospy.Time.now()
         self._tf_listener.waitForTransform("/base_link", self._tf_names_dict[0], now, rospy.Duration(1.5))
-        for ind in range(22):
+        for ind in range(NUM_UR10_JOINTS):
             try:
                 (trans, rot) = self._tf_listener.lookupTransform("/base_link", self._tf_names_dict[ind], now)
             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):

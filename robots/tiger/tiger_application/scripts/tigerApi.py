@@ -21,6 +21,9 @@ class TigerApi:
         """
         return self._tiger_controller.get_joint_states()
 
+    def get_mobile_base_state(self):
+        return self._tiger_controller.get_mobile_base_states()
+
     def get_position(self):
         """
         Function returns the position of the frames with respect to base
@@ -67,6 +70,16 @@ class TigerApi:
         print("Displayed joints are:")
         print(ur10_joints)
         self._tiger_controller.set_joint_states(ur10_joints)
+
+    def set_mobile_base(self):
+        base_position = []
+        base_position_x = input("Enter the x coordinate of the mobile base")
+        base_position.append(base_position_x)
+
+        base_position_y = input("Enter the y coordinate of the mobile base")
+        base_position.append(base_position_y)
+
+        self._tiger_controller.set_mobile_state(base_position, [])
 
     def close(self):
         """

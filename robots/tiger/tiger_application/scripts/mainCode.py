@@ -10,7 +10,9 @@ class UserInput(IntEnum):
     GET_JOINT_POSITION = 2
     SET_JOINT_STATES = 3
     SET_JOINT_POSITION = 4
-    EXIT = 5
+    GET_MOBILE_BASE = 5
+    SET_MOBILE_BASE = 6
+    EXIT = 0
 
 # Initiate the rospy node
 rospy.init_node("tiger_application_1", anonymous=False, log_level=rospy.INFO, disable_signals=False)
@@ -35,6 +37,8 @@ while usrInput != UserInput.EXIT:
     rospy.loginfo(str(int(UserInput.GET_JOINT_STATES)) + ". Get Joint States")
     rospy.loginfo(str(int(UserInput.GET_JOINT_POSITION)) + ". Get Joint Position")
     rospy.loginfo(str(int(UserInput.SET_JOINT_STATES)) + ". Set Joint States")
+    rospy.loginfo(str(int(UserInput.GET_MOBILE_BASE)) + ". Get Mobile Base States")
+    rospy.loginfo(str(int(UserInput.SET_MOBILE_BASE)) + ". Set Mobile Base States")
     rospy.loginfo(str(int(UserInput.EXIT)) + ". Exit Program")
     usrInput = None
     while not usrInput:
@@ -58,6 +62,15 @@ while usrInput != UserInput.EXIT:
 
     elif usrInput == UserInput.SET_JOINT_STATES:
         tigerRobot.set_joint_states()
+
+    elif usrInput == UserInput.GET_MOBILE_BASE:
+        mobile_base_position, mobile_base_orientation = tigerRobot.get_mobile_base_state()
+
+        rospy.loginfo("tiger_application: "+"Querying Mobile base state: ")
+        rospy.loginfo("position: %s [m], orientation: %s", mobile_base_position, mobile_base_orientation)
+
+    elif usrInput == UserInput.SET_MOBILE_BASE:
+        tigerRobot.set_mobile_base()
 
     elif usrInput == UserInput.EXIT:
         tigerRobot.close()

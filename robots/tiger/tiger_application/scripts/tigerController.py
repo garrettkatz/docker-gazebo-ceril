@@ -5,6 +5,7 @@ from gazeboEnvironment import GazeboEnvironment
 from sensor_msgs.msg import JointState
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Float32
+from gazebo_msgs.msg import *
 import tf
 
 
@@ -138,11 +139,24 @@ class TigerController(GazeboEnvironment):
                 self._joint_names[joint_ind] = joint_states.name[ind]
         return
 
+    def _check_model_states_ready(self):
+        "Check if the gazebo model states are ready"
+        self.model_states = None
+        rospy.logdebug("Waiting for /gazebo/model_states to be READY...")
+        while self.model_states is None and not rospy.is_shutdown():
+            try:
+                self.model_states = rospy.wait_for_message("/gazebo/model_states", ModelStates, timeout=5.0)
+                rospy.logdebug("Current /gazebo/model_states READY=>")
+            except:
+                rospy.logerr("Current /gazebo/model_states not ready yet, retrying for getting model_states")
+
+        return
+
     def _check_all_sensors_ready(self):
         "Check if all sensors of the system is initialized"
         rospy.loginfo("tiger_application: "+"START CHECK IF ALL SENSORS READY")
         self._check_joint_states()
-        self._check_imu_ready()
+        #self._check_imu_ready()
         rospy.loginfo("tiger_application: "+"ALL SENSORS READY")
 
     def _check_tf_listener_ready(self):
@@ -175,6 +189,9 @@ class TigerController(GazeboEnvironment):
         "Callback to update the laser scan ros data"
         self.imu = data
 
+    def _model_state_callback(self, data):
+        self.model_states = data
+
     def _check_publishers_connection(self):
         """
         Checks that all the publishers are working
@@ -192,7 +209,17 @@ class TigerController(GazeboEnvironment):
               except rospy.ROSInterruptException:
                 # This is to avoid error when world is rested, time when backwards.
                 pass
-            rospy.loginfo("tiger_application: tiger_application: "+ self._pub_names_dict[ind] + " Publisher Connected")
+            rospy.loginfo("tiger_application: tiger_application: " + self._pub_names_dict[ind] + " Publisher Connected")
+
+        while self._mobile_base_publisher.get_num_connections() == 0 and not rospy.is_shutdown():
+            rospy.loginfo("tiger_application: tiger_application: "+
+                          "No subscribers to" + " mobile base " +  " yet so we wait and try again")
+            try:
+                rate.sleep()
+            except rospy.ROSInterruptException:
+                pass
+        rospy.loginfo("tiger_application: tiger_application: " + " mobile base " + " Publisher Connected")
+
         rospy.loginfo("tiger_application: ""tiger_application: "+("All Publishers READY"))
 
     def initialize_controller(self):
@@ -206,7 +233,9 @@ class TigerController(GazeboEnvironment):
 
         # We Start all the ROS related Subscribers and publishers
         rospy.Subscriber("/tiger/joint_states", JointState, self._joint_states_callback)
-        # IMU Subscriber to be added later
+
+        # Mobile base Subscriber to be added later
+        rospy.Subscriber("/gazebo/model_states", ModelStates, self._model_state_callback)
 
         self._ur10_joint = []
 
@@ -216,6 +245,7 @@ class TigerController(GazeboEnvironment):
         self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_wrist_1_joint', Float32, queue_size=1))
         self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_wrist_2_joint', Float32, queue_size=1))
         self._ur10_joint.append(rospy.Publisher('/force_joints/tiger/ur10_custom_wrist_3_joint', Float32, queue_size=1))
+        self._mobile_base_publisher = rospy.Publisher("/gazebo/set_model_state", ModelState, queue_size=1)
 
         # self._cmd_vel_pub = rospy.Publisher('/mobile_base/commands/velocity', Twist, queue_size=1)
         # self.set_model_state_publisher = rospy.Publisher("/gazebo/set_model_state",ModelState,queue_size=100)
@@ -242,6 +272,27 @@ class TigerController(GazeboEnvironment):
             rospy.loginfo("Publishing to joint: " + self._pub_names_dict[ind] + " value: " + str(ur10_joint_list[ind]) + " rad")
             self._ur10_joint[ind].publish(ur10_joint_list[ind])
 
+    def set_mobile_state(self, position, orientation):
+        """
+        Function to set the mobile base to given position and orientation
+        :param position: x, y coordinate of the mobile base state
+        :param orientation: orientation of the mobile base in quaternion - currently unused
+        :return:
+        """
+        model_state = ModelState()
+        model_state.model_name = "tiger"
+        model_state.pose.position.x = position[0]
+        model_state.pose.position.y = position[1]
+        model_state.pose.position.z = 0
+        model_state.pose.orientation.x = 0.7
+        model_state.pose.orientation.y = 0
+        model_state.pose.orientation.z = 0
+        model_state.pose.orientation.w = 0.7
+        model_state.reference_frame = "world"
+
+        self._mobile_base_publisher.publish(model_state)
+
+
     def get_position(self):
         """
         Function returns the position of the frames with respect to base
@@ -260,3 +311,19 @@ class TigerController(GazeboEnvironment):
             joint_orientation[ind, :] = rot
 
         return self._joint_names, joint_position, joint_orientation
+
+    def get_mobile_base_states(self):
+        rospy.loginfo("Printing the mobile base state")
+        mobile_position = np.zeros((1, 3), dtype=np.float64)
+        mobile_orientation = np.zeros((1, 4), dtype=np.float64)
+        tiger_ind = self.model_states.name.index("tiger")
+
+        mobile_position[0, 0] = self.model_states.pose[tiger_ind].position.x
+        mobile_position[0, 1] = self.model_states.pose[tiger_ind].position.y
+        mobile_position[0, 2] = self.model_states.pose[tiger_ind].position.z
+
+        mobile_orientation[0, 0] = self.model_states.pose[tiger_ind].orientation.x
+        mobile_orientation[0, 1] = self.model_states.pose[tiger_ind].orientation.y
+        mobile_orientation[0, 2] = self.model_states.pose[tiger_ind].orientation.z
+        mobile_orientation[0, 3] = self.model_states.pose[tiger_ind].orientation.w
+        return mobile_position, mobile_orientation
